@@ -5,10 +5,10 @@
    Tutorial 13
    Case Problem 2
 
-   Author: 
-   Date:   
+   Author: Caleb Snow
+   Date:  4/19/19 
    
-   Filename: dl_expenses.js
+   Filename: dl_expense.js
    
    Function List
    =============
@@ -30,6 +30,9 @@
       Formats the value, "val", as U.S. currency.
       
 */
+window.addEventListener("load", function () {})
+
+var changingCells =
 
 
 
@@ -38,11 +41,16 @@
 
 
 
-function formatNumber(val, decimals) {
-   return val.toLocaleString(undefined, {minimumFractionDigits: decimals, 
-                                         maximumFractionDigits: decimals});
-}
+      function formatNumber(val, decimals) {
+            return val.toLocaleString(undefined, {
+                  minimumFractionDigits: decimals,
+                  maximumFractionDigits: decimals
+            });
+      }
 
 function formatUSCurrency(val) {
-   return val.toLocaleString('en-US', {style: "currency", currency: "USD"} );
+      return val.toLocaleString('en-US', {
+            style: "currency",
+            currency: "USD"
+      });
 }
