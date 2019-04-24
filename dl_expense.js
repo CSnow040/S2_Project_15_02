@@ -30,23 +30,84 @@
       Formats the value, "val", as U.S. currency.
       
 */
-window.addEventListener("load", function () {})
-
-var changingCells =
-
-
-
-
-
-
-
-
-      function formatNumber(val, decimals) {
-            return val.toLocaleString(undefined, {
-                  minimumFractionDigits: decimals,
-                  maximumFractionDigits: decimals
-            });
+//Loads in all of the needed information from the index to take the steps this javascript file has made
+window.addEventListener("load", function () {
+      var changingCells = document.querySelectorAll("table#travelExp input.sum");
+      for (var i = 0; i < changingCells.length; i++) {
+            changingCells[i].onchange = calcExp
       }
+      document.getElementById("submitButton").addEventListener("click", validateSummary);
+})
+// Creates a function that validates the summary input text box area which pops up a custom message when they have done something wrong
+function validateSummary() {
+      var summary = document.getElementById("summary");
+      if (summary.validity.valueMissing) {
+            summary.setCustomValidity("You must include a summary on your trip report");
+      } else {
+            summary.setCustomValidity("")
+      }
+}
+// Creates a function that extracts the numeric value out of the sumfield variable and eventually it returns the sumTotal
+function calcClass(sumClass) {
+      var sumFields = document.getElementsByClassName(sumClass);
+      var sumTotal = 0;
+      for (var i = 0; i < sumFields.length; i++) {
+            var itemValue = parseFloat(sumFields[i].value);
+            if (!isNaN(itemValue)) {
+                  sumTotal += itemValue;
+            }
+
+
+      }
+      return sumTotal
+}
+//Makes the value of the table rows in the travelExp table changeable 
+function calcExp() {
+      var expTable = document.querySelectorAll("table#travelExp tbody tr")
+      for (var i = 0; i < expTable.length; i++) {
+            document.getElementById("subtotal" + i).value = formatNumber(calcClass("date" + i), 2);
+      }
+      //Tracks the input element totals of each column then takes it to the 2nd decimal point
+      document.getElementById("mealTotal").value = formatNumber(calcClass("meal"), 2);
+      document.getElementById("transTotal").value = formatNumber(calcClass("trans"), 2);
+      document.getElementById("lodgeTotal").value = formatNumber(calcClass("lodge"), 2);
+      document.getElementById("otherTotal").value = formatNumber(calcClass("other"), 2);
+      document.getElementById("expTotal").value = formatUSCurrency(calcClass("sum"));
+
+
+}
+
+
+
+
+function formatNumber(val, decimals) {
+      return val.toLocaleString(undefined, {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals
+      });
+}
+
+function formatUSCurrency(val) {
+      return val.toLocaleString('en-US', {
+            style: "currency",
+            currency: "USD"
+      });
+}
+
+
+
+
+
+
+
+
+
+function formatNumber(val, decimals) {
+      return val.toLocaleString(undefined, {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals
+      });
+}
 
 function formatUSCurrency(val) {
       return val.toLocaleString('en-US', {
